@@ -11,8 +11,8 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="116"
-  DTS:VersionGUID="{20E09DC6-29CD-4D35-ADC4-C50FDEA18E7D}">
+  DTS:VersionBuild="120"
+  DTS:VersionGUID="{5ABC7C1E-BC00-45A7-B50D-592B4B9F95A0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -697,11 +697,11 @@ LEFT JOIN Person.CountryRegion cr ON cr.CountryRegionCode = sp.CountryRegionCode
           version="1">
           <components>
             <component
-              refId="Package\DFT_CargarDimDate\Componente de script 1"
+              refId="Package\DFT_CargarDimDate\Componente de script"
               componentClassID="Microsoft.ManagedComponentHost"
               contactInfo="Incluye y ejecuta código de scripts personalizados. Por ejemplo, se usa para aplicar una regla de negocios que limita el intervalo de valores válidos de una columna de ingresos o para sumar los valores de dos columnas y calcular el promedio de la suma.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;13"
               description="Incluye y ejecuta código de scripts personalizados. Por ejemplo, se usa para aplicar una regla de negocios que limita el intervalo de valores válidos de una columna de ingresos o para sumar los valores de dos columnas y calcular el promedio de la suma."
-              name="Componente de script 1"
+              name="Componente de script"
               version="13">
               <properties>
                 <property
@@ -713,240 +713,77 @@ LEFT JOIN Person.CountryRegion cr ON cr.CountryRegionCode = sp.CountryRegionCode
                   <arrayElements
                     arrayElementCount="30">
                     <arrayElement
-                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[UTF8]]></arrayElement>
                     <arrayElement
-                      dataType="System.String"><![CDATA[#region Help:  Introduction to the Script Component
-/* The Script Component allows you to perform virtually any operation that can be accomplished in
- * a .Net application within the context of an Integration Services data flow.
- *
- * Expand the other regions which have "Help" prefixes for examples of specific ways to use
- * Integration Services features within this script component. */
-#endregion
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
 
-#region Namespaces
 using System;
 using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
 using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
 using Microsoft.SqlServer.Dts.Runtime.Wrapper;
-#endregion
 
-/// <summary>
-/// This is the class to which to add your code.  Do not change the name, attributes, or parent
-/// of this class.
-/// </summary>
-[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
-public class ScriptMain : UserComponent
+public class UserComponent: ScriptComponent
 {
-    #region Help:  Using Integration Services variables and parameters
-    /* To use a variable in this script, first ensure that the variable has been added to
-     * either the list contained in the ReadOnlyVariables property or the list contained in
-     * the ReadWriteVariables property of this script component, according to whether or not your
-     * code needs to write into the variable.  To do so, save this script, close this instance of
-     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
-     * Script Transformation Editor window.
-     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
-     *
-     * Example of reading from a variable or parameter:
-     *  DateTime startTime = Variables.MyStartTime;
-     *
-     * Example of writing to a variable:
-     *  Variables.myStringVariable = "new value";
-     */
-    #endregion
-
-    #region Help:  Using Integration Services Connnection Managers
-    /* Some types of connection managers can be used in this script component.  See the help topic
-     * "Working with Connection Managers Programatically" for details.
-     *
-     * To use a connection manager in this script, first ensure that the connection manager has
-     * been added to either the list of connection managers on the Connection Managers page of the
-     * script component editor.  To add the connection manager, save this script, close this instance of
-     * Visual Studio, and add the Connection Manager to the list.
-     *
-     * If the component needs to hold a connection open while processing rows, override the
-     * AcquireConnections and ReleaseConnections methods.
-     * 
-     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
-     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
-     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
-     *
-     * Example of using a File connection manager to acquire a file path:
-     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
-     *  string filePath = (string)rawConnection;
-     *
-     * Example of releasing a connection manager:
-     *  Connections.SalesDB.ReleaseConnection(rawConnection);
-     */
-    #endregion
-
-    #region Help:  Firing Integration Services Events
-    /* This script component can fire events.
-     *
-     * Example of firing an error event:
-     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
-     *
-     * Example of firing an information event:
-     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
-     *
-     * Example of firing a warning event:
-     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
-     */
-    #endregion
-
-    /// <summary>
-    /// This method is called once, before rows begin to be processed in the data flow.
-    ///
-    /// You can remove this method if you don't need to do anything here.
-    /// </summary>
-    public override void PreExecute()
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
     {
-        base.PreExecute();
-        /*
-         * Add your code here
-         */
+        Connections = new Connections(this);
+        Variables = new Variables(this);
     }
 
-    /// <summary>
-    /// This method is called after all the rows have passed through this component.
-    ///
-    /// You can delete this method if you don't need to do anything here.
-    /// </summary>
-    public override void PostExecute()
+    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
     {
-        base.PostExecute();
-        /*
-         * Add your code here
-         */
+
+        if (InputName.Equals(@"Entrada 0", StringComparison.Ordinal))
+        {
+            Entrada0_ProcessInput(new Entrada0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
+        }
+
     }
 
-    /// <summary>
-    /// This method is called once for every row that passes through the component from Entrada0.
-    ///
-    /// Example of reading a value from a column in the the row:
-    ///  string zipCode = Row.ZipCode
-    ///
-    /// Example of writing a value to a column in the row:
-    ///  Row.ZipCode = zipCode
-    /// </summary>
-    /// <param name="Row">The row that is currently passing through the component</param>
-    public override void Entrada0_ProcessInputRow(Entrada0Buffer Row)
+    public virtual void Entrada0_ProcessInput(Entrada0Buffer Buffer)
     {
-        if (Row.Fecha_IsNull) return;
+        while (Buffer.NextRow())
+        {
+            Entrada0_ProcessInputRow(Buffer);
+        }
+    }
 
-        DateTime d = Row.Fecha;
+    public virtual void Entrada0_ProcessInputRow(Entrada0Buffer Row)
+    {
+    }
 
-        // Asignar valores a las columnas de salida
-        Row.DateKey = d.Year * 10000 + d.Month * 100 + d.Day;
-        Row.FullDate = d;
-        Row.DayNumber = d.Day;
-        Row.MonthNumber = d.Month;
-        Row.MonthName = d.ToString("MMMM", System.Globalization.CultureInfo.InvariantCulture);
-        Row.YearNumber = d.Year;
-        Row.QuarterNumber = (d.Month - 1) / 3 + 1;
+}
 
-        // Calcular semana del a�o
-        System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.InvariantCulture;
-        System.Globalization.Calendar calendar = culture.Calendar;
-        Row.WeekOfYear = calendar.GetWeekOfYear(d,
-            System.Globalization.CalendarWeekRule.FirstDay,
-            DayOfWeek.Monday);
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
     }
 
 }
 ]]></arrayElement>
-                    <arrayElement
-                      dataType="System.String"><![CDATA[SC_ec50adedeefa43c880b7421a85baf27a.csproj]]></arrayElement>
-                    <arrayElement
-                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
-                    <arrayElement
-                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <PropertyGroup>
-    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{27492EE7-2E45-42FD-B017-8B322BF560CB}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SC_ec50adedeefa43c880b7421a85baf27a</RootNamespace>
-    <AssemblyName>SC_ec50adedeefa43c880b7421a85baf27a</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>.\bin\Debug\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <DebugSymbols>false</DebugSymbols>
-    <Optimize>true</Optimize>
-    <OutputPath>.\bin\Release\</OutputPath>
-    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.SqlServer.TxScript, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Compile Include="main.cs" />
-    <Compile Include="BufferWrapper.cs" />
-    <Compile Include="ComponentWrapper.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <AppDesigner Include="Properties\" />
-    <Compile Include="Properties\AssemblyInfo.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <!-- Include the build rules for a C# project.-->
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
-  <ProjectExtensions>
-    <VisualStudio>
-      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
-        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
-        <Host Name="ScriptComponent" IconIndex="0" />
-        <ProjectClient>
-          <HostIdentifier>SSIS_SC160</HostIdentifier>
-        </ProjectClient>
-      </FlavorProperties>
-    </VisualStudio>
-  </ProjectExtensions>
-</Project>]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
                     <arrayElement
@@ -1069,6 +906,152 @@ public class ScriptMain : UserComponent
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
 </root>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[#region Help:  Introduction to the Script Component
+/* The Script Component allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services data flow.
+ *
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script component. */
+#endregion
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    #region Help:  Using Integration Services variables and parameters
+    /* To use a variable in this script, first ensure that the variable has been added to
+     * either the list contained in the ReadOnlyVariables property or the list contained in
+     * the ReadWriteVariables property of this script component, according to whether or not your
+     * code needs to write into the variable.  To do so, save this script, close this instance of
+     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
+     * Script Transformation Editor window.
+     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+     *
+     * Example of reading from a variable or parameter:
+     *  DateTime startTime = Variables.MyStartTime;
+     *
+     * Example of writing to a variable:
+     *  Variables.myStringVariable = "new value";
+     */
+    #endregion
+
+    #region Help:  Using Integration Services Connnection Managers
+    /* Some types of connection managers can be used in this script component.  See the help topic
+     * "Working with Connection Managers Programatically" for details.
+     *
+     * To use a connection manager in this script, first ensure that the connection manager has
+     * been added to either the list of connection managers on the Connection Managers page of the
+     * script component editor.  To add the connection manager, save this script, close this instance of
+     * Visual Studio, and add the Connection Manager to the list.
+     *
+     * If the component needs to hold a connection open while processing rows, override the
+     * AcquireConnections and ReleaseConnections methods.
+     * 
+     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
+     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
+     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
+     *
+     * Example of using a File connection manager to acquire a file path:
+     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
+     *  string filePath = (string)rawConnection;
+     *
+     * Example of releasing a connection manager:
+     *  Connections.SalesDB.ReleaseConnection(rawConnection);
+     */
+    #endregion
+
+    #region Help:  Firing Integration Services Events
+    /* This script component can fire events.
+     *
+     * Example of firing an error event:
+     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
+     *
+     * Example of firing an information event:
+     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
+     *
+     * Example of firing a warning event:
+     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
+     */
+    #endregion
+
+    /// <summary>
+    /// This method is called once, before rows begin to be processed in the data flow.
+    ///
+    /// You can remove this method if you don't need to do anything here.
+    /// </summary>
+    public override void PreExecute()
+    {
+        base.PreExecute();
+        /*
+         * Add your code here
+         */
+    }
+
+    /// <summary>
+    /// This method is called after all the rows have passed through this component.
+    ///
+    /// You can delete this method if you don't need to do anything here.
+    /// </summary>
+    public override void PostExecute()
+    {
+        base.PostExecute();
+        /*
+         * Add your code here
+         */
+    }
+
+    /// <summary>
+    /// This method is called once for every row that passes through the component from Entrada0.
+    ///
+    /// Example of reading a value from a column in the the row:
+    ///  string zipCode = Row.ZipCode
+    ///
+    /// Example of writing a value to a column in the row:
+    ///  Row.ZipCode = zipCode
+    /// </summary>
+    /// <param name="Row">The row that is currently passing through the component</param>
+    public override void Entrada0_ProcessInputRow(Entrada0Buffer Row)
+    {
+        // Verificar si la fecha es nula para evitar errores
+        if (Row.Fecha_IsNull) return;
+
+        DateTime d = Row.Fecha;
+
+        // L�gica de transformaci�n
+        Row.DateKey = d.Year * 10000 + d.Month * 100 + d.Day;
+        Row.FullDate = d;
+        Row.DayNumber = d.Day;
+        Row.MonthNumber = d.Month;
+        Row.MonthName = d.ToString("MMMM", System.Globalization.CultureInfo.InvariantCulture);
+        Row.YearNumber = d.Year;
+        // C�lculo del trimestre
+        Row.QuarterNumber = (d.Month - 1) / 3 + 1;
+
+        // C�lculo de la semana del a�o
+        System.Globalization.CultureInfo culture = System.Globalization.CultureInfo.InvariantCulture;
+        System.Globalization.Calendar calendar = culture.Calendar;
+        Row.WeekOfYear = calendar.GetWeekOfYear(d,
+            System.Globalization.CalendarWeekRule.FirstDay,
+            DayOfWeek.Monday);
+    }
+
+}
+]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
                     <arrayElement
@@ -1311,10 +1294,10 @@ public class Entrada0Buffer: ScriptBuffer
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ec50adedeefa43c880b7421a85baf27a.Properties.Settings.get_Default():SC_ec50adedeefa43c880b7421a85baf27a.Properties.Sett" +
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Settings.get_Default():SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Sett" +
     "ings")]
 
-namespace SC_ec50adedeefa43c880b7421a85baf27a.Properties {
+namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     
     
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
@@ -1331,100 +1314,137 @@ namespace SC_ec50adedeefa43c880b7421a85baf27a.Properties {
 }
 ]]></arrayElement>
                     <arrayElement
-                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                      dataType="System.String"><![CDATA[SC_ea1d6f0c28314deb930d5afcded9aa05.csproj]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[UTF8]]></arrayElement>
                     <arrayElement
-                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
-*  Microsoft SQL Server Integration Services component wrapper
-*  This module defines the base class for your component
-*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
-
-using System;
-using System.Data;
-using Microsoft.SqlServer.Dts.Pipeline;
-using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
-using Microsoft.SqlServer.Dts.Runtime.Wrapper;
-
-public class UserComponent: ScriptComponent
-{
-    public Connections Connections;
-    public Variables Variables;
-    public UserComponent()
-    {
-        Connections = new Connections(this);
-        Variables = new Variables(this);
-    }
-
-    public override void ProcessInput(int InputID, string InputName, PipelineBuffer Buffer, OutputNameMap OutputMap)
-    {
-
-        if (InputName.Equals(@"Entrada 0", StringComparison.Ordinal))
-        {
-            Entrada0_ProcessInput(new Entrada0Buffer(Buffer, GetColumnIndexes(InputID), OutputMap));
-        }
-
-    }
-
-    public virtual void Entrada0_ProcessInput(Entrada0Buffer Buffer)
-    {
-        while (Buffer.NextRow())
-        {
-            Entrada0_ProcessInputRow(Buffer);
-        }
-    }
-
-    public virtual void Entrada0_ProcessInputRow(Entrada0Buffer Row)
-    {
-    }
-
-}
-
-public class Connections
-{
-    ScriptComponent ParentComponent;
-
-    public Connections(ScriptComponent Component)
-    {
-        ParentComponent = Component;
-    }
-
-}
-
-public class Variables
-{
-    ScriptComponent ParentComponent;
-
-    public Variables(ScriptComponent Component)
-    {
-        ParentComponent = Component;
-    }
-
-}
-]]></arrayElement>
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C914595B-AC5A-4BBC-B787-99B5EAC1C515}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_ea1d6f0c28314deb930d5afcded9aa05</RootNamespace>
+    <AssemblyName>SC_4C7114582A6B498195C52F63F33A3424</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=16.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC160</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[Project]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
   <msb:PropertyGroup>
+    <msb:CodeName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
-    <msb:CodeName>SC_ec50adedeefa43c880b7421a85baf27a</msb:CodeName>
-    <msb:DisplayName>SC_ec50adedeefa43c880b7421a85baf27a</msb:DisplayName>
-    <msb:ProjectId>{78CE266D-F52B-4B3F-8FC1-C1D3BF55772D}</msb:ProjectId>
+    <msb:DisplayName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:DisplayName>
+    <msb:ProjectId>{391BBEC2-097A-4410-9B8A-0E4781B463FB}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
-    <msb:Project Include="SC_ec50adedeefa43c880b7421a85baf27a.csproj" />
+    <msb:Project Include="SC_ea1d6f0c28314deb930d5afcded9aa05.csproj" />
+    <msb:File Include="ComponentWrapper.cs" />
+    <msb:File Include="main.cs" />
+    <msb:File Include="BufferWrapper.cs" />
     <msb:File Include="Properties\Settings.settings" />
     <msb:File Include="Properties\AssemblyInfo.cs" />
     <msb:File Include="Properties\Resources.resx" />
     <msb:File Include="Properties\Resources.Designer.cs" />
-    <msb:File Include="main.cs" />
-    <msb:File Include="BufferWrapper.cs" />
     <msb:File Include="Properties\Settings.Designer.cs" />
-    <msb:File Include="ComponentWrapper.cs" />
   </msb:ItemGroup>
 </c:Project>]]></arrayElement>
                     <arrayElement
@@ -1440,11 +1460,11 @@ using System.Runtime.CompilerServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 //
-[assembly: AssemblyTitle("SC_ec50adedeefa43c880b7421a85baf27a")]
+[assembly: AssemblyTitle("SC_ea1d6f0c28314deb930d5afcded9aa05")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("SC_ec50adedeefa43c880b7421a85baf27a")]
+[assembly: AssemblyProduct("SC_ea1d6f0c28314deb930d5afcded9aa05")]
 [assembly: AssemblyCopyright("Copyright @  2025")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -1487,14 +1507,14 @@ using System.Runtime.CompilerServices;
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ec50adedeefa43c880b7421a85baf27a.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
     "rceManager")]
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ec50adedeefa43c880b7421a85baf27a.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
     "fo")]
-[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ec50adedeefa43c880b7421a85baf27a.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
     "):Void")]
 
-namespace SC_ec50adedeefa43c880b7421a85baf27a.Properties {
+namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     
     
     /// <summary>
@@ -1522,7 +1542,7 @@ namespace SC_ec50adedeefa43c880b7421a85baf27a.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if ((resourceMan == null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_ec50adedeefa43c880b7421a85baf27a.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_ea1d6f0c28314deb930d5afcded9aa05.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -1556,18 +1576,18 @@ namespace SC_ec50adedeefa43c880b7421a85baf27a.Properties {
                   <arrayElements
                     arrayElementCount="2">
                     <arrayElement
-                      dataType="System.String"><![CDATA[SC_ec50adedeefa43c880b7421a85baf27a.dll]]></arrayElement>
+                      dataType="System.String"><![CDATA[SC_4C7114582A6B498195C52F63F33A3424.dll]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDABpSM2kAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAQjcA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDADriNGkAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAPjcA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
-ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAPA2AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAOw2AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAASBcAAAAgAAAAGAAAAAIA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAARBcAAAAgAAAAGAAAAAIA
 AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAaAAAAAAAAAAAAAAAAAABAAABA
-LnJlbG9jAAAMAAAAAGAAAAACAAAAIAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAk
-NwAAAAAAAEgAAAACAAUAWCMAAOASAAABAAAAAAAAADg2AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAIAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAg
+NwAAAAAAAEgAAAACAAUAWCMAANwSAAABAAAAAAAAADQ2AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKBAAAAoqHgIoEQAACioTMAUAqQAAAAEAABEDbwcAAAYs
 ASoDbwYAAAYKAxIAKBIAAAogECcAAFoSACgTAAAKH2RaWBIAKBQAAApYbwgAAAYDBm8KAAAGAxIA
 KBQAAApvDAAABgMSACgTAAAKbw4AAAYDEgByAQAAcCgVAAAKKBYAAApvEAAABgMSACgSAAAKbxIA
@@ -1583,13 +1603,13 @@ CiwVAgUCAyglAAAKDgRzBQAABm8cAAAGKkorBwIDbx0AAAYDbxgAAAYt8SoGKjoCKCYAAAoCA30D
 AAAEKjoCKCYAAAoCA30EAAAEKh4CKCYAAAoqrn4FAAAELR5y3gAAcNAHAAACKCcAAApvKAAACnMp
 AAAKgAUAAAR+BQAABCoafgYAAAQqHgKABgAABCoafgcAAAQqHgIoKgAACioucyUAAAaABwAABCoA
 QlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAeAcAACN+AADkBwAAwAcAACNTdHJp
-bmdzAAAAAKQPAABQAQAAI1VTAPQQAAAQAAAAI0dVSUQAAAAEEQAA3AEAACNCbG9iAAAAAAAAAAIA
+bmdzAAAAAKQPAABQAQAAI1VTAPQQAAAQAAAAI0dVSUQAAAAEEQAA2AEAACNCbG9iAAAAAAAAAAIA
 AAFXFaIBCQEAAAD6ATMAFgAAAQAAACUAAAAIAAAABwAAACYAAAAdAAAAKgAAABAAAAABAAAAAwAA
 ABUAAAAWAAAAAQAAAAQAAAABAAAAAABdAwEAAAAAAAYAQQLeBQYA1QLeBQYAjQHLBQ8AUgYAAAYA
 ugGcBAYAJAKcBAYABQKcBAYAvAKcBAYAYQKcBAYAegKcBAYA0QGcBAYA7AEQAwoAlQK4AAYArwBU
 BAYAAQWHBAoAnQW4AA4AjgW4AAoA5QS4AAoAGAe4AAYA2wZUBAYAcAHLBQYArgX+BQYA2QSHBBIA
 QAFHAxIAoQFHAxIAGwFyBAYAVQHeBQYAbwVUBAYAgwCHBAYAPQNUBAYAAQBUBAYArgRUBAYALANU
-BAYAyARUBAYA2QBUBAYAXwBUBAYAtQecBAAAAAAHAAAAAAABAAEAAQAQAGcEAAAQAAEAAQABABAA
+BAYAyARUBAYA2QBUBAYAXwBUBAYAtQecBAAAAAArAAAAAAABAAEAAQAQAGcEAAAQAAEAAQABABAA
 fwUAAEEAAQAFAAEAEAD6BgAATQABABoAAQAQAM8GAABRAAMAHgABABAAkAYAAFEABAAfAAAAEAAF
 BmEGUQAFACAAAAEQAL8GYQZpAAcAJAAGAM8GnwAGAJAGowABAAgHpwABAAgHpwARAFsEqwARAPYA
 rwARAE8AswBQIAAAAADGAPMCBgABAFggAAAAAMYA/gIGAAEAYCAAAAAAxgB8B7cAAQAVIQAAAACG
@@ -1603,22 +1623,22 @@ ANkiAAAAAMYBfAe3ABoA2yIAAAAAhhi+BdcAGwDqIgAAAACGGL4F1wAcAPkiAAAAAIMYvgUGAB0A
 ASMAAAAAkwiqBd0AHQAtIwAAAACTCN4AJgAdADQjAAAAAJMI6gDiAB0APCMAAAAAlgjuBugAHgBD
 IwAAAACGGL4FBgAeAEsjAAAAAJEYxAXtAB4AAAABAJkHAAABAKMFAAACAJoGAAADAPMEAAABAAoD
 AAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAAB
-AAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABABAAAAACAKIAAAADAKMFAAAEAPME
+AAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABAAoDAAABADQAAAACAKIAAAADAKMFAAAEAPME
 AAABAKMFAAABAJkHAAABAB4HAAABAB4HAAABAAoDCQC+BQEAEQC+BQYAGQC+BQoAKQC+BRAAMQC+
 BRAAOQC+BRAAQQC+BRAASQC+BRAAUQC+BRAAWQC+BRAAYQC+BRAAaQC+BQYAqQC+BQYAyQC+BRUA
 2QC+BQYAmQDzAgYAmQD+AgYAcQAKBSIAcQAzAyIAcQCdByIAuQAGASYAcQAqAysAuQD9BDIAeQAi
 BTcAgQC+BUEAgQCjBUsAgQCaBk8AiQCsAFMAgQA8BFkAgQBLBF4AgQBDBAEAAQG+BRAAgQCVB2QA
 gQDiBmQAmQC+BQYACQHIBmgAmQCuBnAAoQC+BQYAGQFxAHYAGQGxB38AsQC+BYUA0QC+BQYALgAL
 ABEBLgATABoBLgAbADkBLgAjAEIBLgArAGsBLgAzAGsBLgA7AGsBLgBDAEIBLgBLAHEBLgBTAGsB
-LgBbAIgBQwBjANYB4QB7ANYB4wBrANYBaQJzADkBiQJzADkBGwADAAEABwATAAgAFQAAAEAA8QAA
+LgBbAIgBQwBjANIB4QB7ANIB4wBrANIBaQJzADkBiQJzADkBGwADAAEABwATAAgAFQAAAEAA8QAA
 AIkD9gAAAKkH+gAAADQE9gAAADcB8QAAAK8D9gAAAGUF+gAAAB8E9gAAADQF+gAAANkD9gAAAJgA
 /gAAAJoD9gAAAEQF+gAAAPAD9gAAAFMF+gAAAAYE9gAAACUF+gAAAMMD9gAAAK4FAgEAABMBBwEA
 APIGDAECAAYAAwACAAcABQABAAgABwABAAkACQABAAoACwABAAsADQABAAwADwABAA0AEQABAA4A
 EwABAA8AFQABABAAFwABABEAGQABABIAGwABABMAHQABABQAHwABABUAIQABABYAIwABABcAJQAC
-ACEAJwACACIAKQABACMAKQACACQAKwAEgAAAAQAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAAAAAAA
+ACEAJwACACIAKQABACMAKQACACQAKwAEgAAAAQAAAAAAAAAAAAAAAAAHAAAABAAAAAAAAAAAAAAA
 jQBGAAAAAAAQAAAAAAAAAAAAAACWACgHAAAAABAAAAAAAAAAAAAAAJYARQcAAAAABAAAAAAAAAAA
-AAAAjQBUBAAAAAAAAAAAAQAAAA8GAAAAAABJbnQzMgA8TW9kdWxlPgBJbnB1dElEAFNDX2VjNTBh
-ZGVkZWVmYTQzYzg4MGI3NDIxYTg1YmFmMjdhAGdldF9GZWNoYQBtc2NvcmxpYgBkZWZhdWx0SW5z
+AAAAjQBUBAAAAAAAAAAAAQAAAA8GAAAAAABJbnQzMgBTQ180QzcxMTQ1ODJBNkI0OTgxOTVDNTJG
+NjNGMzNBMzQyNAA8TW9kdWxlPgBJbnB1dElEAGdldF9GZWNoYQBtc2NvcmxpYgBkZWZhdWx0SW5z
 dGFuY2UAUnVudGltZVR5cGVIYW5kbGUAR2V0VHlwZUZyb21IYW5kbGUAQ2FsZW5kYXJXZWVrUnVs
 ZQBzZXRfTW9udGhOYW1lAElucHV0TmFtZQBHZXREYXRlVGltZQBNaWNyb3NvZnQuU3FsU2VydmVy
 LkR0cy5QaXBlbGluZQBUeXBlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVy
@@ -1632,8 +1652,8 @@ cmlidXRlAEFzc2VtYmx5UHJvZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0
 ZQBTU0lTU2NyaXB0Q29tcG9uZW50RW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlB
 dHRyaWJ1dGUAUnVudGltZUNvbXBhdGliaWxpdHlBdHRyaWJ1dGUAUHJlRXhlY3V0ZQBQb3N0RXhl
 Y3V0ZQB2YWx1ZQBTeXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAFRvU3RyaW5nAGdldF9Nb250aABE
-YXlPZldlZWsAU3lzdGVtLkNvbXBvbmVudE1vZGVsAFNDX2VjNTBhZGVkZWVmYTQzYzg4MGI3NDIx
-YTg1YmFmMjdhLmRsbABnZXRfRmVjaGFfSXNOdWxsAHNldF9Nb250aE5hbWVfSXNOdWxsAHNldF9G
+YXlPZldlZWsAU3lzdGVtLkNvbXBvbmVudE1vZGVsAFNDXzRDNzExNDU4MkE2QjQ5ODE5NUM1MkY2
+M0YzM0EzNDI0LmRsbABnZXRfRmVjaGFfSXNOdWxsAHNldF9Nb250aE5hbWVfSXNOdWxsAHNldF9G
 dWxsRGF0ZV9Jc051bGwAc2V0X1dlZWtPZlllYXJfSXNOdWxsAHNldF9Nb250aE51bWJlcl9Jc051
 bGwAc2V0X1llYXJOdW1iZXJfSXNOdWxsAHNldF9RdWFydGVyTnVtYmVyX0lzTnVsbABzZXRfRGF5
 TnVtYmVyX0lzTnVsbABzZXRfRGF0ZUtleV9Jc051bGwAU2V0TnVsbABzZXRfSXRlbQBTeXN0ZW0A
@@ -1644,9 +1664,9 @@ ZGFyAGdldF9ZZWFyAHNldF9XZWVrT2ZZZWFyAEdldFdlZWtPZlllYXIAc2V0X01vbnRoTnVtYmVy
 AHNldF9ZZWFyTnVtYmVyAHNldF9RdWFydGVyTnVtYmVyAHNldF9EYXlOdW1iZXIASUZvcm1hdFBy
 b3ZpZGVyAEVudHJhZGEwQnVmZmVyAFBpcGVsaW5lQnVmZmVyAFNjcmlwdEJ1ZmZlcgBnZXRfUmVz
 b3VyY2VNYW5hZ2VyAC5jdG9yAC5jY3RvcgBTeXN0ZW0uRGlhZ25vc3RpY3MAU3lzdGVtLlJ1bnRp
-bWUuQ29tcGlsZXJTZXJ2aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNDX2VjNTBhZGVkZWVmYTQzYzg4
-MGI3NDIxYTg1YmFmMjdhLlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdN
-b2RlcwBTQ19lYzUwYWRlZGVlZmE0M2M4ODBiNzQyMWE4NWJhZjI3YS5Qcm9wZXJ0aWVzAFZhcmlh
+bWUuQ29tcGlsZXJTZXJ2aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNDX2VhMWQ2ZjBjMjgzMTRkZWI5
+MzBkNWFmY2RlZDlhYTA1LlByb3BlcnRpZXMuUmVzb3VyY2VzLnJlc291cmNlcwBEZWJ1Z2dpbmdN
+b2RlcwBTQ19lYTFkNmYwYzI4MzE0ZGViOTMwZDVhZmNkZWQ5YWEwNS5Qcm9wZXJ0aWVzAFZhcmlh
 YmxlcwBCdWZmZXJDb2x1bW5JbmRleGVzAEdldENvbHVtbkluZGV4ZXMAU2V0dGluZ3MARXF1YWxz
 AENvbm5lY3Rpb25zAE9iamVjdABFbmRPZlJvd3NldABnZXRfRGVmYXVsdABVc2VyQ29tcG9uZW50
 AFBhcmVudENvbXBvbmVudABTY3JpcHRDb21wb25lbnQATWljcm9zb2Z0LlNxbFNlcnZlci5UeFNj
@@ -1656,22 +1676,22 @@ ZXRfQXNzZW1ibHkAAAAACU0ATQBNAE0AAIC9TABhACAAcAByAG8AcABpAGUAZABhAGQAIABJAHMA
 TgB1AGwAbAAgAG4AbwAgAHAAdQBlAGQAZQAgAGUAcwB0AGEAYgBsAGUAYwBlAHIAcwBlACAAZQBu
 ACAARgBhAGwAcwBlAC4AIABFAG4AIABzAHUAIABsAHUAZwBhAHIALAAgAGEAcwBpAGcAbgBlACAA
 dQBuACAAdgBhAGwAbwByACAAYQAgAGwAYQAgAGMAbwBsAHUAbQBuAGEALgAAE0UAbgB0AHIAYQBk
-AGEAIAAwAABxUwBDAF8AZQBjADUAMABhAGQAZQBkAGUAZQBmAGEANAAzAGMAOAA4ADAAYgA3ADQA
-MgAxAGEAOAA1AGIAYQBmADIANwBhAC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQBy
-AGMAZQBzAAAhfiEirpSxR4v2QAUOB/TcAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
+AGEAIAAwAABxUwBDAF8AZQBhADEAZAA2AGYAMABjADIAOAAzADEANABkAGUAYgA5ADMAMABkADUA
+YQBmAGMAZABlAGQAOQBhAGEAMAA1AC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQBy
+AGMAZQBzAADB5hvXW2K1TrnOzOgySvYeAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
 PQMgAAgEAAASXQYgAg4OEnEEIAASPQkgAwgRORF1EXkJIAMBEkUdCBJJAwYSRQMGHQgFIAEROQgE
 IAECCAUgAgEIHAMgAAIHIAICDhGAiQUgAR0ICAgAARKAjRGAkQUgABKAlQcgAgEOEoCVCLd6XFYZ
 NOCJCImEXc2AgMyRAwYSFAMGEhgDBhJNAwYSWQMGEl0DBhIgBSABARIMBCAAETkEIAEBAgUgAQER
 OQkgBAEIDhJFEkkFIAEBEk0EAAASWQUAAQESXQQAABIgAwAAAQQoABE5AygAAgMoAAgDKAAOBAgA
 ElkECAASXQQIABIgCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQgBAAIA
-AAAAACgBACNTQ19lYzUwYWRlZGVlZmE0M2M4ODBiNzQyMWE4NWJhZjI3YQAABQEAAAAAFgEAEUNv
-cHlyaWdodCBAICAyMDI1AABNAQAcLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjcuMgEAVA4URnJh
-bWV3b3JrRGlzcGxheU5hbWUULk5FVCBGcmFtZXdvcmsgNC43LjIEAQAAAAC0AAAAzsrvvgEAAACR
-AAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQu
-MC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNT
-eXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAA
-GDcAAAAAAAAAAAAAMjcAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQ3AAAAAAAAAAAAAAAAX0Nv
-ckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAACgBACNTQ19lYTFkNmYwYzI4MzE0ZGViOTMwZDVhZmNkZWQ5YWEwNQAABQEAAAAAFgEAEUNv
+cHlyaWdodCBAICAyMDI1AABJAQAaLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjcBAFQOFEZyYW1l
+d29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuNwQBAAAAALQAAADOyu++AQAAAJEAAABs
+U3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAu
+MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3Rl
+bS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAAAUNwAA
+AAAAAAAAAAAuNwAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDcAAAAAAAAAAAAAAABfQ29yRGxs
+TWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1682,16 +1702,16 @@ AQBWAGEAcgBGAGkAbABlAEkAbgBmAG8AAAAAACQABAAAAFQAcgBhAG4AcwBsAGEAdABpAG8AbgAA
 AAAAAACwBEwDAAABAFMAdAByAGkAbgBnAEYAaQBsAGUASQBuAGYAbwAAACgDAAABADAAMAAwADAA
 MAA0AGIAMAAAABoAAQABAEMAbwBtAG0AZQBuAHQAcwAAAAAAAAAiAAEAAQBDAG8AbQBwAGEAbgB5
 AE4AYQBtAGUAAAAAAAAAAABwACQAAQBGAGkAbABlAEQAZQBzAGMAcgBpAHAAdABpAG8AbgAAAAAA
-UwBDAF8AZQBjADUAMABhAGQAZQBkAGUAZQBmAGEANAAzAGMAOAA4ADAAYgA3ADQAMgAxAGEAOAA1
-AGIAYQBmADIANwBhAAAAMAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADAA
-LgAwAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwBlAGMANQAwAGEAZABl
-AGQAZQBlAGYAYQA0ADMAYwA4ADgAMABiADcANAAyADEAYQA4ADUAYgBhAGYAMgA3AGEALgBkAGwA
+UwBDAF8AZQBhADEAZAA2AGYAMABjADIAOAAzADEANABkAGUAYgA5ADMAMABkADUAYQBmAGMAZABl
+AGQAOQBhAGEAMAA1AAAAMAAIAAEARgBpAGwAZQBWAGUAcgBzAGkAbwBuAAAAAAAxAC4AMAAuADAA
+LgAwAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABTAEMAXwA0AEMANwAxADEANAA1
+ADgAMgBBADYAQgA0ADkAOAAxADkANQBDADUAMgBGADYAMwBGADMAMwBBADMANAAyADQALgBkAGwA
 bAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAAAEMAbwBwAHkAcgBpAGcAaAB0
 ACAAQAAgACAAMgAwADIANQAAACoAAQABAEwAZQBnAGEAbABUAHIAYQBkAGUAbQBhAHIAawBzAAAA
-AAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfAGUAYwA1
-ADAAYQBkAGUAZABlAGUAZgBhADQAMwBjADgAOAAwAGIANwA0ADIAMQBhADgANQBiAGEAZgAyADcA
-YQAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwBlAGMANQAw
-AGEAZABlAGQAZQBlAGYAYQA0ADMAYwA4ADgAMABiADcANAAyADEAYQA4ADUAYgBhAGYAMgA3AGEA
+AAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfADQAQwA3
+ADEAMQA0ADUAOAAyAEEANgBCADQAOQA4ADEAOQA1AEMANQAyAEYANgAzAEYAMwAzAEEAMwA0ADIA
+NAAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwBlAGEAMQBk
+ADYAZgAwAGMAMgA4ADMAMQA0AGQAZQBiADkAMwAwAGQANQBhAGYAYwBkAGUAZAA5AGEAYQAwADUA
 AAA0AAgAAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADAALgAwAAAAOAAI
 AAEAQQBzAHMAZQBtAGIAbAB5ACAAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1701,7 +1721,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAAEQ3AAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAAEA3AAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1717,7 +1737,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
                   dataType="System.String"
                   description="Especifica el nombre del proyecto de Microsoft Visual Studio Tools para Aplicaciones. Los nombres de proyecto deben ser únicos en el paquete."
                   name="VSTAProjectName"
-                  typeConverter="NOTBROWSABLE">SC_ec50adedeefa43c880b7421a85baf27a</property>
+                  typeConverter="NOTBROWSABLE">SC_4c7114582a6b498195c52f63f33a3424</property>
                 <property
                   dataType="System.String"
                   description="Especifica el lenguaje de programación que utiliza el script."
@@ -1753,12 +1773,12 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
               </properties>
               <inputs>
                 <input
-                  refId="Package\DFT_CargarDimDate\Componente de script 1.Inputs[Entrada 0]"
+                  refId="Package\DFT_CargarDimDate\Componente de script.Inputs[Entrada 0]"
                   hasSideEffects="true"
                   name="Entrada 0">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Inputs[Entrada 0].Columns[Fecha]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Inputs[Entrada 0].Columns[Fecha]"
                       cachedDataType="dbTimeStamp"
                       cachedName="Fecha"
                       lineageId="Package\DFT_CargarDimDate\OLE DB Source.Outputs[OLE DB Source Output].Columns[Fecha]" />
@@ -1768,50 +1788,50 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0]"
+                  refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0]"
                   name="Salida 0"
-                  synchronousInputId="Package\DFT_CargarDimDate\Componente de script 1.Inputs[Entrada 0]">
+                  synchronousInputId="Package\DFT_CargarDimDate\Componente de script.Inputs[Entrada 0]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DateKey]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DateKey]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DateKey]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DateKey]"
                       name="DateKey" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[FullDate]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[FullDate]"
                       dataType="dbTimeStamp"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[FullDate]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[FullDate]"
                       name="FullDate" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DayNumber]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DayNumber]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DayNumber]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DayNumber]"
                       name="DayNumber" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthNumber]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthNumber]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthNumber]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthNumber]"
                       name="MonthNumber" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthName]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthName]"
                       dataType="wstr"
                       length="20"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthName]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthName]"
                       name="MonthName" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[YearNumber]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[YearNumber]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[YearNumber]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[YearNumber]"
                       name="YearNumber" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[QuarterNumber]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[QuarterNumber]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[QuarterNumber]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[QuarterNumber]"
                       name="QuarterNumber" />
                     <outputColumn
-                      refId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[WeekOfYear]"
+                      refId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[WeekOfYear]"
                       dataType="i4"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[WeekOfYear]"
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[WeekOfYear]"
                       name="WeekOfYear" />
                   </outputColumns>
                   <externalMetadataColumns />
@@ -1895,50 +1915,50 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
                       cachedDataType="i4"
                       cachedName="DateKey"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DateKey]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DateKey]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DateKey]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[FullDate]"
                       cachedDataType="dbTimeStamp"
                       cachedName="FullDate"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[FullDate]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[FullDate]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[FullDate]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[DayNumber]"
                       cachedDataType="i4"
                       cachedName="DayNumber"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[DayNumber]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[DayNumber]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[DayNumber]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MonthNumber]"
                       cachedDataType="i4"
                       cachedName="MonthNumber"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthNumber]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthNumber]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthNumber]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[MonthName]"
                       cachedDataType="wstr"
                       cachedLength="20"
                       cachedName="MonthName"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[MonthName]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[MonthName]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[MonthName]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[YearNumber]"
                       cachedDataType="i4"
                       cachedName="YearNumber"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[YearNumber]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[YearNumber]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[YearNumber]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[QuarterNumber]"
                       cachedDataType="i4"
                       cachedName="QuarterNumber"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[QuarterNumber]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[QuarterNumber]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[QuarterNumber]" />
                     <inputColumn
                       refId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[WeekOfYear]"
                       cachedDataType="i4"
                       cachedName="WeekOfYear"
                       externalMetadataColumnId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[WeekOfYear]"
-                      lineageId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0].Columns[WeekOfYear]" />
+                      lineageId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0].Columns[WeekOfYear]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -2116,14 +2136,14 @@ ORDER BY OrderDate;</property>
           <paths>
             <path
               refId="Package\DFT_CargarDimDate.Paths[OLE DB Source Output]"
-              endId="Package\DFT_CargarDimDate\Componente de script 1.Inputs[Entrada 0]"
+              endId="Package\DFT_CargarDimDate\Componente de script.Inputs[Entrada 0]"
               name="OLE DB Source Output"
               startId="Package\DFT_CargarDimDate\OLE DB Source.Outputs[OLE DB Source Output]" />
             <path
               refId="Package\DFT_CargarDimDate.Paths[Salida 0]"
               endId="Package\DFT_CargarDimDate\OLE DB Destination.Inputs[OLE DB Destination Input]"
               name="Salida 0"
-              startId="Package\DFT_CargarDimDate\Componente de script 1.Outputs[Salida 0]" />
+              startId="Package\DFT_CargarDimDate\Componente de script.Outputs[Salida 0]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -5448,7 +5468,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{429037EA-0E0F-4AF5-B3FE-A0E389513C7F}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE FactSales;&#xA;&#xA;DELETE FROM DimProduct;&#xA;DELETE FROM DimCustomer;&#xA;DELETE FROM DimTerritory;&#xA;DELETE FROM DimSalesReason;&#xA;DELETE FROM DimDate;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE FactSales;&#xA;&#xA;DELETE FROM DimProduct;&#xA;DELETE FROM DimCustomer;&#xA;DELETE FROM DimTerritory;&#xA;DELETE FROM DimSalesReason;&#xA;DELETE FROM DimDate;&#xA;&#xA;SET IDENTITY_INSERT [dbo].[DimSalesReason] ON;&#xA;INSERT INTO [dbo].[DimSalesReason] (SalesReasonKey, SalesReasonID, SalesReasonName, ReasonType)&#xA;VALUES (-1, -1, 'Sin Motivo', 'Desconocido');&#xA;SET IDENTITY_INSERT [dbo].[DimSalesReason] OFF;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -5802,29 +5822,29 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
         <NodeLayout
           Size="150,42"
           Id="Package\DFT_CargarDimDate\OLE DB Source"
-          TopLeft="121,65" />
+          TopLeft="119,65" />
         <NodeLayout
           Size="171,42"
           Id="Package\DFT_CargarDimDate\OLE DB Destination"
           TopLeft="654,62" />
         <NodeLayout
-          Size="191,42"
-          Id="Package\DFT_CargarDimDate\Componente de script 1"
-          TopLeft="361.5,63.5" />
+          Size="182,42"
+          Id="Package\DFT_CargarDimDate\Componente de script"
+          TopLeft="377,64" />
         <EdgeLayout
           Id="Package\DFT_CargarDimDate.Paths[OLE DB Source Output]"
-          TopLeft="271,85.25">
+          TopLeft="269,85.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="90.5,0"
+              EndConnector="108,0"
               Start="0,0"
-              End="83,0">
+              End="100.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="83,0" />
+                    End="100.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5835,18 +5855,18 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
         </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT_CargarDimDate.Paths[Salida 0]"
-          TopLeft="552.5,83.75">
+          TopLeft="559,84">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="101.5,0"
+              EndConnector="95,0"
               Start="0,0"
-              End="94,0">
+              End="87.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="94,0" />
+                    End="87.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -5883,7 +5903,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimProduct">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimProduct\Derived Column"
@@ -5919,7 +5939,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5941,7 +5963,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5963,7 +5987,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5994,7 +6020,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimSalesReason">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimSalesReason\Derived Column"
@@ -6030,7 +6056,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6052,7 +6080,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6074,7 +6104,9 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6224,21 +6256,13 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <GraphLayout
         Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="122,42"
-          Id="Package\DFT_CargarFactSales\Lookup 1"
-          TopLeft="585,133" />
-        <NodeLayout
-          Size="122,42"
-          Id="Package\DFT_CargarFactSales\Lookup 3"
-          TopLeft="591,302" />
+          Size="171,42"
+          Id="Package\DFT_CargarFactSales\OLE DB Destination"
+          TopLeft="830.5,478.5" />
         <NodeLayout
           Size="163,42"
           Id="Package\DFT_CargarFactSales\Derived Column 2"
           TopLeft="829,389" />
-        <NodeLayout
-          Size="150,42"
-          Id="Package\DFT_CargarFactSales\OLE DB Source"
-          TopLeft="123,42" />
         <NodeLayout
           Size="113,42"
           Id="Package\DFT_CargarFactSales\Lookup"
@@ -6248,33 +6272,71 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
           Id="Package\DFT_CargarFactSales\Lookup 2"
           TopLeft="585,216" />
         <NodeLayout
-          Size="171,42"
-          Id="Package\DFT_CargarFactSales\OLE DB Destination"
-          TopLeft="830.5,478.5" />
+          Size="122,42"
+          Id="Package\DFT_CargarFactSales\Lookup 4"
+          TopLeft="590,388" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\DFT_CargarFactSales\OLE DB Source"
+          TopLeft="123,42" />
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarFactSales\Derived Column"
           TopLeft="350.5,41.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\DFT_CargarFactSales\Lookup 1"
+          TopLeft="585,133" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\DFT_CargarFactSales\Lookup 3"
+          TopLeft="591,302" />
         <EdgeLayout
-          Id="Package\DFT_CargarFactSales.Paths[OLE DB Source Output]"
-          TopLeft="273,62.75">
+          Id="Package\DFT_CargarFactSales.Paths[Lookup Match Output4]"
+          TopLeft="712,409.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="77.5,0"
+              EndConnector="117,0"
               Start="0,0"
-              End="70,0">
+              End="109.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="70,0" />
+                    End="109.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="6.55861328125,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_CargarFactSales.Paths[Lookup Match Output3]"
+          TopLeft="651.5,344">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,12.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6393,112 +6455,41 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="122,42"
-          Id="Package\DFT_CargarFactSales\Lookup 4"
-          TopLeft="590,388" />
         <EdgeLayout
-          Id="Package\DFT_CargarFactSales.Paths[Lookup Match Output3]"
-          TopLeft="651.5,344">
+          Id="Package\DFT_CargarFactSales.Paths[OLE DB Source Output]"
+          TopLeft="273,62.75">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,44"
+              EndConnector="77.5,0"
               Start="0,0"
-              End="0,36.5">
+              End="70,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5" />
+                    End="70,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="-48.19138671875,12.4453125,96.3827734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DFT_CargarFactSales.Paths[Lookup Match Output4]"
-          TopLeft="712,409.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="117,0"
-              Start="0,0"
-              End="109.5,0">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="109.5,0" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="6.55861328125,5,96.3827734375,11.609375"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_CargarFactSales\Lookup 1">
+    design-time-name="Package\DFT_CargarFactSales\OLE DB Destination">
     <Properties>
       <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimCustomer]</Value>
+        <Name>DataSourceViewID</Name>
       </Property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DFT_CargarFactSales\Lookup 3">
-    <Properties>
-      <Property>
-        <Name>OverwriteParamsSQLProp</Name>
-        <Value
-          type="q2:string">false</Value>
-      </Property>
-      <Property>
-        <Name>UsedTableName</Name>
-        <Value
-          type="q3:string">[dbo].[DimDate]</Value>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q4:string">0</Value>
-      </Property>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DFT_CargarFactSales\OLE DB Source">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
@@ -6549,25 +6540,12 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_CargarFactSales\OLE DB Destination">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\DFT_CargarFactSales\Lookup 4">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6577,7 +6555,61 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_CargarFactSales\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_CargarFactSales\Lookup 1">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimCustomer]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_CargarFactSales\Lookup 3">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[DimDate]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>

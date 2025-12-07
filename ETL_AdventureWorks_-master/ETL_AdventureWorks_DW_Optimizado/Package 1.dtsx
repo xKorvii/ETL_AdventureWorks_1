@@ -11,8 +11,8 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="99"
-  DTS:VersionGUID="{BEABED3D-4445-4315-A29C-1B66DE14B3B3}">
+  DTS:VersionBuild="107"
+  DTS:VersionGUID="{0DD982BE-FF01-4151-A5FC-7613F4B5EC9F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -1331,11 +1331,13 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SC_ea1d6f0c28314deb930d5afcded9aa05</RootNamespace>
     <AssemblyName>SC_ea1d6f0c28314deb930d5afcded9aa05</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -1345,7 +1347,7 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
     <Optimize>true</Optimize>
     <OutputPath>.\bin\Release\</OutputPath>
@@ -1353,6 +1355,23 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <PlatformTarget>x64</PlatformTarget>
+    <LangVersion>7.3</LangVersion>
+    <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -1410,23 +1429,23 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
                       dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
                     <arrayElement
                       dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
-<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
   <msb:PropertyGroup>
-    <msb:Language>msBuild</msb:Language>
     <msb:CodeName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:CodeName>
+    <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:DisplayName>
-    <msb:ProjectId>{E7588E89-6D32-4989-9FCE-79DDC4D5FD4D}</msb:ProjectId>
+    <msb:ProjectId>{52F21850-E597-4456-B743-39109DD3DFF2}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="SC_ea1d6f0c28314deb930d5afcded9aa05.csproj" />
+    <msb:File Include="ComponentWrapper.cs" />
+    <msb:File Include="main.cs" />
+    <msb:File Include="BufferWrapper.cs" />
     <msb:File Include="Properties\Settings.settings" />
     <msb:File Include="Properties\AssemblyInfo.cs" />
     <msb:File Include="Properties\Resources.resx" />
     <msb:File Include="Properties\Resources.Designer.cs" />
-    <msb:File Include="main.cs" />
-    <msb:File Include="BufferWrapper.cs" />
     <msb:File Include="Properties\Settings.Designer.cs" />
-    <msb:File Include="ComponentWrapper.cs" />
   </msb:ItemGroup>
 </c:Project>]]></arrayElement>
                     <arrayElement
@@ -1562,14 +1581,14 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
                     <arrayElement
                       dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAAhbM2kAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAQjcA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDANDhNGkAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAPjcA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
-ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAPA2AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAOw2AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAASBcAAAAgAAAAGAAAAAIA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAARBcAAAAgAAAAGAAAAAIA
 AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAEgEAAAAQAAAAAYAAAAaAAAAAAAAAAAAAAAAAABAAABA
-LnJlbG9jAAAMAAAAAGAAAAACAAAAIAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAk
-NwAAAAAAAEgAAAACAAUAWCMAAOASAAABAAAAAAAAADg2AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAIAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAAAg
+NwAAAAAAAEgAAAACAAUAWCMAANwSAAABAAAAAAAAADQ2AAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAB4CKBAAAAoqHgIoEQAACioTMAUAqQAAAAEAABEDbwcAAAYs
 ASoDbwYAAAYKAxIAKBIAAAogECcAAFoSACgTAAAKH2RaWBIAKBQAAApYbwgAAAYDBm8KAAAGAxIA
 KBQAAApvDAAABgMSACgTAAAKbw4AAAYDEgByAQAAcCgVAAAKKBYAAApvEAAABgMSACgSAAAKbxIA
@@ -1585,7 +1604,7 @@ CiwVAgUCAyglAAAKDgRzBQAABm8cAAAGKkorBwIDbx0AAAYDbxgAAAYt8SoGKjoCKCYAAAoCA30D
 AAAEKjoCKCYAAAoCA30EAAAEKh4CKCYAAAoqrn4FAAAELR5y3gAAcNAHAAACKCcAAApvKAAACnMp
 AAAKgAUAAAR+BQAABCoafgYAAAQqHgKABgAABCoafgcAAAQqHgIoKgAACioucyUAAAaABwAABCoA
 QlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAeAcAACN+AADkBwAAwAcAACNTdHJp
-bmdzAAAAAKQPAABQAQAAI1VTAPQQAAAQAAAAI0dVSUQAAAAEEQAA3AEAACNCbG9iAAAAAAAAAAIA
+bmdzAAAAAKQPAABQAQAAI1VTAPQQAAAQAAAAI0dVSUQAAAAEEQAA2AEAACNCbG9iAAAAAAAAAAIA
 AAFXFaIBCQEAAAD6ATMAFgAAAQAAACUAAAAIAAAABwAAACYAAAAdAAAAKgAAABAAAAABAAAAAwAA
 ABUAAAAWAAAAAQAAAAQAAAABAAAAAABdAwEAAAAAAAYAQQLeBQYA1QLeBQYAjQHLBQ8AUgYAAAYA
 ugGcBAYAJAKcBAYABQKcBAYAvAKcBAYAYQKcBAYAegKcBAYA0QGcBAYA7AEQAwoAlQK4AAYArwBU
@@ -1612,7 +1631,7 @@ BRAAOQC+BRAAQQC+BRAASQC+BRAAUQC+BRAAWQC+BRAAYQC+BRAAaQC+BQYAqQC+BQYAyQC+BRUA
 BTcAgQC+BUEAgQCjBUsAgQCaBk8AiQCsAFMAgQA8BFkAgQBLBF4AgQBDBAEAAQG+BRAAgQCVB2QA
 gQDiBmQAmQC+BQYACQHIBmgAmQCuBnAAoQC+BQYAGQFxAHYAGQGxB38AsQC+BYUA0QC+BQYALgAL
 ABEBLgATABoBLgAbADkBLgAjAEIBLgArAGsBLgAzAGsBLgA7AGsBLgBDAEIBLgBLAHEBLgBTAGsB
-LgBbAIgBQwBjANYB4QB7ANYB4wBrANYBaQJzADkBiQJzADkBGwADAAEABwATAAgAFQAAAEAA8QAA
+LgBbAIgBQwBjANIB4QB7ANIB4wBrANIBaQJzADkBiQJzADkBGwADAAEABwATAAgAFQAAAEAA8QAA
 AIkD9gAAAKkH+gAAADQE9gAAADcB8QAAAK8D9gAAAGUF+gAAAB8E9gAAADQF+gAAANkD9gAAAJgA
 /gAAAJoD9gAAAEQF+gAAAPAD9gAAAFMF+gAAAAYE9gAAACUF+gAAAMMD9gAAAK4FAgEAABMBBwEA
 APIGDAECAAYAAwACAAcABQABAAgABwABAAkACQABAAoACwABAAsADQABAAwADwABAA0AEQABAA4A
@@ -1660,20 +1679,20 @@ ACAARgBhAGwAcwBlAC4AIABFAG4AIABzAHUAIABsAHUAZwBhAHIALAAgAGEAcwBpAGcAbgBlACAA
 dQBuACAAdgBhAGwAbwByACAAYQAgAGwAYQAgAGMAbwBsAHUAbQBuAGEALgAAE0UAbgB0AHIAYQBk
 AGEAIAAwAABxUwBDAF8AZQBhADEAZAA2AGYAMABjADIAOAAzADEANABkAGUAYgA5ADMAMABkADUA
 YQBmAGMAZABlAGQAOQBhAGEAMAA1AC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQBy
-AGMAZQBzAACP+GQhVI9uRp+jEeqNEBy+AAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
+AGMAZQBzAADAJW/RZ0CATLq0KDS3LiuVAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
 PQMgAAgEAAASXQYgAg4OEnEEIAASPQkgAwgRORF1EXkJIAMBEkUdCBJJAwYSRQMGHQgFIAEROQgE
 IAECCAUgAgEIHAMgAAIHIAICDhGAiQUgAR0ICAgAARKAjRGAkQUgABKAlQcgAgEOEoCVCLd6XFYZ
 NOCJCImEXc2AgMyRAwYSFAMGEhgDBhJNAwYSWQMGEl0DBhIgBSABARIMBCAAETkEIAEBAgUgAQER
 OQkgBAEIDhJFEkkFIAEBEk0EAAASWQUAAQESXQQAABIgAwAAAQQoABE5AygAAgMoAAgDKAAOBAgA
 ElkECAASXQQIABIgCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9uVGhyb3dzAQgBAAIA
 AAAAACgBACNTQ19lYTFkNmYwYzI4MzE0ZGViOTMwZDVhZmNkZWQ5YWEwNQAABQEAAAAAFgEAEUNv
-cHlyaWdodCBAICAyMDI1AABNAQAcLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjcuMgEAVA4URnJh
-bWV3b3JrRGlzcGxheU5hbWUULk5FVCBGcmFtZXdvcmsgNC43LjIEAQAAAAC0AAAAzsrvvgEAAACR
-AAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBWZXJzaW9uPTQu
-MC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYxOTM0ZTA4OSNT
-eXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBBRFBBRFC0AAAA
-GDcAAAAAAAAAAAAAMjcAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAACQ3AAAAAAAAAAAAAAAAX0Nv
-ckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+cHlyaWdodCBAICAyMDI1AABJAQAaLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0LjcBAFQOFEZyYW1l
+d29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuNwQBAAAAALQAAADOyu++AQAAAJEAAABs
+U3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAu
+MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3Rl
+bS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAAAUNwAA
+AAAAAAAAAAAuNwAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIDcAAAAAAAAAAAAAAABfQ29yRGxs
+TWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1703,7 +1722,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAAEQ3AAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMAAADAAAAEA3AAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -4467,7 +4486,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{7A322DDD-A3C7-482C-8BDD-1F0AEF389897}"
-          SQLTask:SqlStatementSource="TRUNCATE TABLE FactSales;&#xA;&#xA;DELETE FROM DimProduct;&#xA;DELETE FROM DimCustomer;&#xA;DELETE FROM DimTerritory;&#xA;DELETE FROM DimSalesReason;&#xA;DELETE FROM DimDate;&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          SQLTask:SqlStatementSource="TRUNCATE TABLE FactSales;&#xA;&#xA;DELETE FROM DimProduct;&#xA;DELETE FROM DimCustomer;&#xA;DELETE FROM DimTerritory;&#xA;DELETE FROM DimSalesReason;&#xA;DELETE FROM DimDate;&#xA;&#xA;SET IDENTITY_INSERT [dbo].[DimSalesReason] ON;&#xA;INSERT INTO [dbo].[DimSalesReason] (SalesReasonKey, SalesReasonID, SalesReasonName, ReasonType)&#xA;VALUES (-1, -1, 'Sin Motivo', 'Desconocido');&#xA;SET IDENTITY_INSERT [dbo].[DimSalesReason] OFF;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
       </DTS:ObjectData>
     </DTS:Executable>
   </DTS:Executables>
@@ -4896,7 +4915,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
     design-time-name="Package\DFT_CargarDimProduct">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimProduct\Derived Column"
@@ -4932,9 +4951,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4956,9 +4973,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -4980,9 +4995,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5130,7 +5143,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
     design-time-name="Package\DFT_CargarDimTerritory">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="171,42"
           Id="Package\DFT_CargarDimTerritory\OLE DB Destination"
@@ -5166,9 +5179,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5190,9 +5201,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5214,9 +5223,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5247,7 +5254,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
     design-time-name="Package\DFT_CargarFactSales_Optimizado">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="150,42"
           Id="Package\DFT_CargarFactSales_Optimizado\OLE DB Source"
@@ -5275,9 +5282,7 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
