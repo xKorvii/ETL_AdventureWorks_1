@@ -11,8 +11,8 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="109"
-  DTS:VersionGUID="{C6291A6C-ABF0-4DAB-810B-87B757A96A35}">
+  DTS:VersionBuild="113"
+  DTS:VersionGUID="{BCE040AC-1677-4ED3-8232-02A3DE5201FE}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -353,7 +353,7 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -506,7 +506,7 @@
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
     c.CustomerID,
     p.FirstName + ' ' + p.LastName AS FullName,
     ea.EmailAddress AS Email,
@@ -702,7 +702,7 @@ LEFT JOIN Person.CountryRegion cr ON cr.CountryRegionCode = sp.CountryRegionCode
               contactInfo="Incluye y ejecuta código de scripts personalizados. Por ejemplo, se usa para aplicar una regla de negocios que limita el intervalo de valores válidos de una columna de ingresos o para sumar los valores de dos columnas y calcular el promedio de la suma.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; Todos los derechos reservados; http://www.microsoft.com/sql/support;13"
               description="Incluye y ejecuta código de scripts personalizados. Por ejemplo, se usa para aplicar una regla de negocios que limita el intervalo de valores válidos de una columna de ingresos o para sumar los valores de dos columnas y calcular el promedio de la suma."
               name="Componente de script"
-              version="12">
+              version="14">
               <properties>
                 <property
                   dataType="System.String"
@@ -1344,10 +1344,10 @@ public class Variables
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="Microsoft.SqlServer.TxScript, Version=15.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=15.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=15.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
-    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=15.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=17.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=17.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=17.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=17.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
     <Compile Include="main.cs" />
     <Compile Include="BufferWrapper.cs" />
     <Compile Include="ComponentWrapper.cs" />
@@ -1383,7 +1383,7 @@ public class Variables
         <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
         <Host Name="ScriptComponent" IconIndex="0" />
         <ProjectClient>
-          <HostIdentifier>SSIS_SC150</HostIdentifier>
+          <HostIdentifier>SSIS_SC170</HostIdentifier>
         </ProjectClient>
       </FlavorProperties>
     </VisualStudio>
@@ -1433,7 +1433,7 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
     <msb:CodeName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>SC_ea1d6f0c28314deb930d5afcded9aa05</msb:DisplayName>
-    <msb:ProjectId>{BD8C2D18-37F7-4AF9-B4AE-5A7A667F914E}</msb:ProjectId>
+    <msb:ProjectId>{F1C48B1D-4F97-457B-B480-7BBA300925A1}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="SC_ea1d6f0c28314deb930d5afcded9aa05.csproj" />
@@ -1580,7 +1580,7 @@ namespace SC_ea1d6f0c28314deb930d5afcded9aa05.Properties {
                     <arrayElement
                       dataType="System.String"><![CDATA[TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAAjpNGkAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAPjcA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAEiXPGkAAAAAAAAAAOAAIiALATAAABgAAAAIAAAAAAAAPjcA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAOw2AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1636,7 +1636,7 @@ AIkD9gAAAKkH+gAAADQE9gAAADcB8QAAAK8D9gAAAGUF+gAAAB8E9gAAADQF+gAAANkD9gAAAJgA
 APIGDAECAAYAAwACAAcABQABAAgABwABAAkACQABAAoACwABAAsADQABAAwADwABAA0AEQABAA4A
 EwABAA8AFQABABAAFwABABEAGQABABIAGwABABMAHQABABQAHwABABUAIQABABYAIwABABcAJQAC
 ACEAJwACACIAKQABACMAKQACACQAKwAEgAAAAQAAAAAAAAAAAAAAAAAHAAAABAAAAAAAAAAAAAAA
-jQBGAAAAAAAPAAAAAAAAAAAAAACWACgHAAAAAA8AAAAAAAAAAAAAAJYARQcAAAAABAAAAAAAAAAA
+jQBGAAAAAAARAAAAAAAAAAAAAACWACgHAAAAABEAAAAAAAAAAAAAAJYARQcAAAAABAAAAAAAAAAA
 AAAAjQBUBAAAAAAAAAAAAQAAAA8GAAAAAABJbnQzMgBTQ19lYTFkNmYwYzI4MzE0ZGViOTMwZDVh
 ZmNkZWQ5YWEwNQA8TW9kdWxlPgBJbnB1dElEAGdldF9GZWNoYQBtc2NvcmxpYgBkZWZhdWx0SW5z
 dGFuY2UAUnVudGltZVR5cGVIYW5kbGUAR2V0VHlwZUZyb21IYW5kbGUAQ2FsZW5kYXJXZWVrUnVs
@@ -1678,7 +1678,7 @@ ACAARgBhAGwAcwBlAC4AIABFAG4AIABzAHUAIABsAHUAZwBhAHIALAAgAGEAcwBpAGcAbgBlACAA
 dQBuACAAdgBhAGwAbwByACAAYQAgAGwAYQAgAGMAbwBsAHUAbQBuAGEALgAAE0UAbgB0AHIAYQBk
 AGEAIAAwAABxUwBDAF8AZQBhADEAZAA2AGYAMABjADIAOAAzADEANABkAGUAYgA5ADMAMABkADUA
 YQBmAGMAZABlAGQAOQBhAGEAMAA1AC4AUAByAG8AcABlAHIAdABpAGUAcwAuAFIAZQBzAG8AdQBy
-AGMAZQBzAABwgK11LA6OTaA+P2CR6dNhAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
+AGMAZQBzAADquEMHy01wTLzqUOXLGUfVAAQgAQEIAyAAAQUgAQEREQQgAQEOBSABARFhBgcCETkS
 PQMgAAgEAAASXQYgAg4OEnEEIAASPQkgAwgRORF1EXkJIAMBEkUdCBJJAwYSRQMGHQgFIAEROQgE
 IAECCAUgAgEIHAMgAAIHIAICDhGAiQUgAR0ICAgAARKAjRGAkQUgABKAlQcgAgEOEoCVCLd6XFYZ
 NOCJCImEXc2AgMyRAwYSFAMGEhgDBhJNAwYSWQMGEl0DBhIgBSABARIMBCAAETkEIAEBAgUgAQER
@@ -1863,7 +1863,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2048,7 +2048,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT DISTINCT OrderDate AS Fecha
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT OrderDate AS Fecha
 FROM Sales.SalesOrderHeader
 WHERE OrderDate IS NOT NULL
 ORDER BY OrderDate;</property>
@@ -2458,7 +2458,7 @@ ORDER BY OrderDate;</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -2611,7 +2611,7 @@ ORDER BY OrderDate;</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
     p.ProductID,
     p.Name AS ProductName,
     p.Color,
@@ -3064,7 +3064,7 @@ LEFT JOIN Production.ProductCategory pc
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -3205,7 +3205,7 @@ LEFT JOIN Production.ProductCategory pc
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
     sr.SalesReasonID,
     sr.Name       AS SalesReasonName,
     sr.ReasonType
@@ -3630,7 +3630,7 @@ FROM Sales.SalesReason AS sr;</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -3771,7 +3771,7 @@ FROM Sales.SalesReason AS sr;</property>
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT 
     st.TerritoryID,
     st.Name AS TerritoryName,
     cr.Name AS Country
@@ -3960,7 +3960,7 @@ JOIN Person.CountryRegion cr
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -4175,7 +4175,7 @@ JOIN Person.CountryRegion cr
                   dataType="System.String"
                   description="The SQL command to be executed."
                   name="SqlCommand"
-                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT
     ISNULL(dp.ProductKey, -1)   AS ProductKey,
     ISNULL(dc.CustomerKey, -1)  AS CustomerKey,
     ISNULL(dt.TerritoryKey, -1) AS TerritoryKey,
@@ -5261,21 +5261,21 @@ LEFT JOIN AdventureDW.dbo.DimSalesReason dsr
         <NodeLayout
           Size="171,42"
           Id="Package\DFT_CargarFactSales_Optimizado\OLE DB Destination"
-          TopLeft="384,68" />
+          TopLeft="385,70" />
         <EdgeLayout
           Id="Package\DFT_CargarFactSales_Optimizado.Paths[OLE DB Source Output]"
-          TopLeft="297,90">
+          TopLeft="297,91">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="87,0"
+              EndConnector="88,0"
               Start="0,0"
-              End="79.5,0">
+              End="80.5,0">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="79.5,0" />
+                    End="80.5,0" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
