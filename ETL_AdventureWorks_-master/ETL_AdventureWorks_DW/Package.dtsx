@@ -11,11 +11,35 @@
   DTS:LocaleID="13322"
   DTS:ObjectName="Package"
   DTS:PackageType="5"
-  DTS:VersionBuild="131"
-  DTS:VersionGUID="{AA7202B7-39AE-4F08-83D5-363D8112C9B0}">
+  DTS:VersionBuild="132"
+  DTS:VersionGUID="{3FE12CFD-A7CE-43EB-9721-B1108B37B199}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{B560C521-9DBF-4BEB-82BB-FF3D919908C6}"
+      DTS:ObjectName="NICO\MSSQLSERVER02.AdventureDW">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=NICO\MSSQLSERVER02;Initial Catalog=AdventureDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{B560C521-9DBF-4BEB-82BB-FF3D919908C6}NICO\MSSQLSERVER02.AdventureDW;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{8204D2F2-7574-4D93-ACF2-CCF92DCEBE34}"
+      DTS:ObjectName="NICO\MSSQLSERVER02.AdventureWorks2019">
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="1"
+          DTS:ConnectRetryInterval="5"
+          DTS:ConnectionString="Data Source=NICO\MSSQLSERVER02;Initial Catalog=AdventureWorks2019;Provider=SQLNCLI11.1;Integrated Security=SSPI;Application Name=SSIS-Package-{8204D2F2-7574-4D93-ACF2-CCF92DCEBE34}NICO\MSSQLSERVER02.AdventureWorks2019;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
     <DTS:ConnectionManager
       DTS:refId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
       DTS:CreationName="OLEDB"
@@ -387,8 +411,8 @@
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimCustomer\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -420,13 +444,6 @@
                       cachedName="Email_lower_conv"
                       externalMetadataColumnId="Package\DFT_CargarDimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Email]"
                       lineageId="Package\DFT_CargarDimCustomer\Data Conversion.Outputs[Data Conversion Output].Columns[Email_lower_conv]" />
-                    <inputColumn
-                      refId="Package\DFT_CargarDimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Country_clean_conv]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="Country_clean_conv"
-                      externalMetadataColumnId="Package\DFT_CargarDimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
-                      lineageId="Package\DFT_CargarDimCustomer\Data Conversion.Outputs[Data Conversion Output].Columns[Country_clean_conv]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -449,10 +466,10 @@
                       length="255"
                       name="Email" />
                     <externalMetadataColumn
-                      refId="Package\DFT_CargarDimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      refId="Package\DFT_CargarDimCustomer\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[CustomerCountry]"
                       dataType="wstr"
                       length="255"
-                      name="Country" />
+                      name="CustomerCountry" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -543,8 +560,8 @@ LEFT JOIN Person.CountryRegion cr ON cr.CountryRegionCode = sp.CountryRegionCode
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimCustomer\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -1881,8 +1898,8 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==]]></arrayElement>
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimDate\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2061,8 +2078,8 @@ ORDER BY OrderDate;</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimDate\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2476,8 +2493,8 @@ ORDER BY OrderDate;</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimProduct\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -2630,8 +2647,8 @@ LEFT JOIN Production.ProductCategory pc
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimProduct\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3082,8 +3099,8 @@ LEFT JOIN Production.ProductCategory pc
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimSalesReason\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3219,8 +3236,8 @@ FROM Sales.SalesReason AS sr;</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimSalesReason\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3648,8 +3665,8 @@ FROM Sales.SalesReason AS sr;</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimTerritory\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -3674,13 +3691,6 @@ FROM Sales.SalesReason AS sr;</property>
                       cachedName="TerritoryName"
                       externalMetadataColumnId="Package\DFT_CargarDimTerritory\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TerritoryName]"
                       lineageId="Package\DFT_CargarDimTerritory\OLE DB Source.Outputs[OLE DB Source Output].Columns[TerritoryName]" />
-                    <inputColumn
-                      refId="Package\DFT_CargarDimTerritory\OLE DB Destination.Inputs[OLE DB Destination Input].Columns[Country_conv]"
-                      cachedDataType="wstr"
-                      cachedLength="50"
-                      cachedName="Country_conv"
-                      externalMetadataColumnId="Package\DFT_CargarDimTerritory\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
-                      lineageId="Package\DFT_CargarDimTerritory\Data Conversion.Outputs[Data Conversion Output].Columns[Country_conv]" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -3698,10 +3708,10 @@ FROM Sales.SalesReason AS sr;</property>
                       length="255"
                       name="TerritoryName" />
                     <externalMetadataColumn
-                      refId="Package\DFT_CargarDimTerritory\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      refId="Package\DFT_CargarDimTerritory\OLE DB Destination.Inputs[OLE DB Destination Input].ExternalColumns[TerritoryCountry]"
                       dataType="wstr"
                       length="255"
-                      name="Country" />
+                      name="TerritoryCountry" />
                   </externalMetadataColumns>
                 </input>
               </inputs>
@@ -3787,8 +3797,8 @@ JOIN Person.CountryRegion cr
               <connections>
                 <connection
                   refId="Package\DFT_CargarDimTerritory\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -4183,8 +4193,8 @@ where [refTable].[ProductID] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\Lookup.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -4323,7 +4333,7 @@ where [refTable].[CustomerID] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomerKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="CustomerKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="FullName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Email" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="CustomerCountry" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -4341,8 +4351,8 @@ where [refTable].[CustomerID] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\Lookup 1.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -4481,7 +4491,7 @@ where [refTable].[TerritoryID] = ?</property>
                 <property
                   dataType="System.String"
                   description="Indicates whether to reference metadata in an XML format."
-                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TerritoryKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TerritoryID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TerritoryName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Country" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="TerritoryKey" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TerritoryID" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TerritoryName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="TerritoryCountry" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
                 <property
                   containsID="true"
                   dataType="System.String"
@@ -4499,8 +4509,8 @@ where [refTable].[TerritoryID] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\Lookup 2.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -4657,8 +4667,8 @@ where [refTable].[DateKey] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\Lookup 3.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -4815,8 +4825,8 @@ where [refTable].[SalesReasonID] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\Lookup 4.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="Connection manager used to access lookup data."
                   name="OleDbConnection" />
               </connections>
@@ -4962,8 +4972,8 @@ where [refTable].[SalesReasonID] = ?</property>
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\OLE DB Destination.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureDW]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureDW]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5185,8 +5195,8 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
               <connections>
                 <connection
                   refId="Package\DFT_CargarFactSales\OLE DB Source.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
-                  connectionManagerRefId="Package.ConnectionManagers[Nico\SQLEXPRESS01.AdventureWorks2019]"
+                  connectionManagerID="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
+                  connectionManagerRefId="Package.ConnectionManagers[NICO\MSSQLSERVER02.AdventureWorks2019]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -5685,7 +5695,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimCustomer">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimCustomer\Derived Column"
@@ -5721,9 +5731,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5745,9 +5753,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5769,9 +5775,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -5887,7 +5891,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimProduct">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimProduct\Derived Column"
@@ -5923,9 +5927,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5947,9 +5949,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -5971,9 +5971,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6004,7 +6002,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimSalesReason">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="154,42"
           Id="Package\DFT_CargarDimSalesReason\Derived Column"
@@ -6040,9 +6038,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6064,9 +6060,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6088,9 +6082,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6121,7 +6113,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
     design-time-name="Package\DFT_CargarDimTerritory">
     <LayoutInfo>
       <GraphLayout
-        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
           Size="171,42"
           Id="Package\DFT_CargarDimTerritory\OLE DB Destination"
@@ -6157,9 +6149,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6181,9 +6171,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -6205,9 +6193,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="0,0,0,0"
-              RelativePosition="Any" />
+            <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
@@ -6483,7 +6469,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6493,7 +6479,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6506,7 +6492,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6516,7 +6502,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6529,7 +6515,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6539,7 +6525,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6560,7 +6546,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6570,7 +6556,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -6583,7 +6569,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:string">false</Value>
+          type="q2:boolean">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -6593,7 +6579,7 @@ LEFT JOIN Sales.SalesOrderHeaderSalesReason sr
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:string">0</Value>
+          type="q4:int">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
